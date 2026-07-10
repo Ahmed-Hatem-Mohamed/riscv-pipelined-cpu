@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module register_file (
     input  logic        clk,
 
@@ -5,22 +7,18 @@ module register_file (
     input  logic [4:0]  rs2,
 
     input  logic [4:0]  rd,
-
     input  logic [31:0] write_data,
-
     input  logic        reg_write,
 
     output logic [31:0] read_data1,
     output logic [31:0] read_data2
 );
 
-logic [31:0] registers [0:31];
+    logic [31:0] registers [0:31];
 
-    // Read operations (combinational)
-    assign read_data1 = registers[rs1];
-    assign read_data2 = registers[rs2];
+    assign read_data1 = (rs1 == 5'd0) ? 32'd0 : registers[rs1];
+    assign read_data2 = (rs2 == 5'd0) ? 32'd0 : registers[rs2];
 
-    // Write operation (synchronous)
     always_ff @(posedge clk) begin
         if (reg_write && rd != 5'd0) begin
             registers[rd] <= write_data;

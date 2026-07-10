@@ -1,3 +1,5 @@
+`timescale 1ns/1ps
+
 module instruction_memory (
     input  logic [31:0] addr,
     output logic [31:0] instruction
@@ -8,5 +10,5 @@ module instruction_memory (
         $readmemh("program.hex", imem);
     end
 
-    assign instruction = imem[addr[31:2]];
+    assign instruction = imem[addr[11:2]];
 endmodule
