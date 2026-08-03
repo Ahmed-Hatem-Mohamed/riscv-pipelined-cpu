@@ -28,9 +28,6 @@ immgen:
 		$(TB_IMMGEN)
 	./obj_dir/V$(TOP_IMMGEN)
 
-clean:
-	rm -rf obj_dir
-
 RTL_CU = $(RTL_DIR)/control_unit.sv
 TB_CU  = $(TB_DIR)/tb_control_unit.sv
 TOP_CU = tb_control_unit
@@ -43,3 +40,21 @@ cu:
 		$(RTL_CU) \
 		$(TB_CU)
 	./obj_dir/V$(TOP_CU)
+
+RTL_ALUCTRL = $(RTL_DIR)/alu_control.sv
+TB_ALUCTRL  = $(TB_DIR)/tb_alu_control.sv
+TOP_ALUCTRL = tb_alu_control
+
+.PHONY: if immgen cu aluctrl clean
+
+aluctrl:
+	verilator -Wno-fatal --binary --trace \
+		--top-module $(TOP_ALUCTRL) \
+		$(RTL_ALUCTRL) \
+		$(TB_ALUCTRL)
+	./obj_dir/V$(TOP_ALUCTRL)
+
+
+clean:
+	rm -rf obj_dir
+	
