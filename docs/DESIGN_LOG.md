@@ -20,3 +20,9 @@
 **Decision:** alu_op=00/01 force ADD/SUBTRACT unconditionally (lw/sw, beq). alu_op=10 triggers a nested case on funct3, with funct7[5] as the sole tiebreaker between add and sub (same funct3=000 for both).
 **Verification:** Self-checking testbench, 8 cases including both funct7[5] states for funct3=000. All PASS.
 **Outcome:** Passed. See docs/verification/alu_control/pass_output.png.
+
+## alu_control — resolving R-type sub-operations from funct3/funct7
+**Context:** add, sub, and, or, slt all share opcode 0110011 — control_unit alone can't distinguish them, only emits alu_op=10 as a "look deeper" signal.
+**Decision:** alu_op=00/01 force ADD/SUBTRACT unconditionally (lw/sw, beq). alu_op=10 triggers a nested case on funct3, with funct7[5] as the sole tiebreaker between add and sub (same funct3=000 for both).
+**Verification:** Self-checking testbench, 8 cases including both funct7[5] states for funct3=000. All PASS.
+**Outcome:** Passed. See docs/verification/alu_control/pass_output.png.

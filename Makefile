@@ -54,7 +54,18 @@ aluctrl:
 		$(TB_ALUCTRL)
 	./obj_dir/V$(TOP_ALUCTRL)
 
+RTL_ALU = $(RTL_DIR)/alu.sv
+TB_ALU  = $(TB_DIR)/tb_alu.sv
+TOP_ALU = tb_alu
 
+.PHONY: if immgen cu aluctrl alu clean
+
+alu:
+	verilator -Wno-fatal --binary --trace \
+		--top-module $(TOP_ALU) \
+		$(RTL_ALU) \
+		$(TB_ALU)
+	./obj_dir/V$(TOP_ALU)
 clean:
 	rm -rf obj_dir
 	
