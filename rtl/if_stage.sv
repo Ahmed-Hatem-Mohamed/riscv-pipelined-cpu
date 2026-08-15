@@ -12,15 +12,13 @@ module if_stage (
 
     logic [31:0] pc_wire;
 
-    instruction_fetch IF_UNIT (
-        .clk           (clk),
-        .rst           (rst),
-        .branch_target (branch_target),
-        .branch_taken  (branch_taken),
-        .pc            (pc_wire),
-        .pc_plus4      (pc_plus4)
-    );
-
+instruction_fetch IF_UNIT (
+    .clk     (clk),
+    .rst     (rst),
+    .next_pc (next_pc),
+    .pc      (pc),
+    .pc_plus4(pc_plus4)
+);
     instruction_memory IMEM_UNIT (
         .addr        (pc_wire),
         .instruction (instruction)

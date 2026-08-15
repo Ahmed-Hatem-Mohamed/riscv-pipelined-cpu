@@ -66,6 +66,42 @@ alu:
 		$(RTL_ALU) \
 		$(TB_ALU)
 	./obj_dir/V$(TOP_ALU)
+
+data_memory:
+	verilator -Wno-fatal --binary --trace \
+	--top-module tb_data_memory \
+	rtl/data_memory.sv \
+	tb/tb_data_memory.sv
+	./obj_dir/Vtb_data_memory
+
+RTL_DIR = rtl
+TB_DIR  = tb
+SIM_DIR = sim
+
+RTL = \
+	$(RTL_DIR)/instruction_fetch.sv \
+	$(RTL_DIR)/instruction_memory.sv \
+	$(RTL_DIR)/if_stage.sv \
+	$(RTL_DIR)/register_file.sv \
+	$(RTL_DIR)/immediate_generator.sv \
+	$(RTL_DIR)/alu_control.sv \
+	$(RTL_DIR)/alu.sv \
+	$(RTL_DIR)/control_unit.sv \
+	$(RTL_DIR)/data_memory.sv \
+	$(RTL_DIR)/single_cycle_cpu.sv
+
+TB_SINGLE = $(TB_DIR)/tb_single_cycle_cpu.sv
+
+single:
+	verilator -Wno-fatal --binary --trace \
+		--top-module tb_single_cycle_cpu \
+		$(RTL) \
+		$(TB_SINGLE)
+
+	./obj_dir/Vtb_single_cycle_cpu
+
 clean:
 	rm -rf obj_dir
+	rm -f sim/*.vcd
+
 	
