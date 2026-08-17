@@ -100,6 +100,21 @@ single:
 
 	./obj_dir/Vtb_single_cycle_cpu
 
+if_id:
+	verilator -Wno-fatal --binary --trace \
+	--top-module tb_if_id_register \
+	rtl/if_id_register.sv \
+	tb/tb_if_id_register.sv
+	./obj_dir/Vtb_if_id_register
+
+id_ex:
+	verilator -Wno-fatal --binary --trace \
+	--top-module tb_id_ex_register \
+	rtl/id_ex_register.sv \
+	tb/tb_id_ex_register.sv
+	./obj_dir/Vtb_id_ex_register
+
+
 clean:
 	rm -rf obj_dir
 	rm -f sim/*.vcd
